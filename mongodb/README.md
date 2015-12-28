@@ -7,7 +7,7 @@
 ### A Primer
 ---------------------------------------------
 
-![Alt text](/images/nosql_primer.png "Primer NoSQL")
+![Alt text](images/nosql_primer.png "Primer NoSQL")
 
 The above diagram shows how MongoDB differs from the traditional relational
 database model. In an RDBMS, the data associated with 'user' is stored in a
@@ -23,7 +23,7 @@ additonal field of 'last name'.
 ### Data Replication
 ------------------------------------
 
-![Alt text](/images/replica_set.png "Replica Set")
+![Alt text](images/replica_set.png "Replica Set")
 
 Data backup is achieved in MongoDB via _replica sets_. As the figure above shows,
 a single replication set consists of a replication master (active) and several
@@ -36,13 +36,13 @@ recommended number of slave servers are 3.
 ### Sharding (Horizontal Scaling) .
 ------------------------------------------------
 
-![Alt text](/images/sharding.png "Sharding")
+![Alt text](images/sharding.png "Sharding")
 
-Sharding works by partioning the data into seperate chunks and allocating
+Sharding works by partitioning the data into seperate chunks and allocating
 diffent ranges of chunks to diffrent shard servers. The figure above shows a
 collection which has 90 documents which have been sharded across the three
-server: the first shard getting ranges from 1-29,  and so on. When a client wants
-to access a certian document it contacts the query router (mongos process),
+servers: the first shard getting ranges from 1-29, and so on. When a client wants
+to access a certain document, it contacts the query router (mongos process),
 which in turn contacts the 'configuration node', a lightweight mongod
 process) that keeps a record of which ranges of chunks are distributed across
 which shards. 
@@ -69,7 +69,7 @@ collection is split and balanced across shards.
 #### Deploy the Cluster
 ----------------------------
 
-![Alt text](/images/site.png "Site")
+![Alt text](images/site.png "Site")
   
 The diagram above illustrates the deployment model for a MongoDB cluster deployed by
 Ansible. This deployment model focuses on deploying three shard servers,
@@ -104,9 +104,9 @@ The inventory file looks as follows:
 
 		#The list of servers where replication should happen, including the master server.
 		[replication_servers]
+		mongo3
 		mongo1
 		mongo2
-		mongo3
 
 		#The list of mongodb configuration servers, make sure it is 1 or 3
 		[mongoc_servers]
@@ -128,8 +128,8 @@ Build the site with the following command:
 ---------------------------------------------
 
 Once configuration and deployment has completed we can check replication set
-availibitly by connecting to individual primary replication set nodes, 'mongo
---host 192.168.1.1 --port 2700' and issue the command to query the status of
+availability by connecting to individual primary replication set nodes, `mongo
+--host 192.168.1.1 --port 2700` and issue the command to query the status of
 replication set, we should get a similar output.
 
 		
@@ -150,7 +150,7 @@ replication set, we should get a similar output.
 				"optimeDate" : ISODate("2013-03-19T10:25:55Z"),
 				"self" : true
 			},
-		{
+			{
 				"_id" : 1,
 				"name" : "web3:2013",
 				"health" : 1,
@@ -162,8 +162,8 @@ replication set, we should get a similar output.
 				"lastHeartbeat" : ISODate("2013-03-19T10:26:33Z"),
 				"pingMs" : 1
 			}
-		],
-		"ok" : 1
+			],
+			"ok" : 1
 		}
 
 
@@ -190,7 +190,7 @@ step.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-![Alt text](/images/check.png "check")
+![Alt text](images/check.png "check")
 
 The above mentioned steps can be tested with an automated playbook.
 
@@ -227,7 +227,7 @@ the number of chunks spread across the shards.
 ### Scaling the Cluster
 ---------------------------------------
 
-![Alt text](/images/scale.png "scale")
+![Alt text](images/scale.png "scale")
 
 To add a new node to the existing MongoDB Cluster, modify the inventory file as follows:
 

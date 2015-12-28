@@ -1,6 +1,12 @@
 ---
 # This role contains common plays that will run on all nodes.
 
+- name: Install python bindings for SE Linux
+  yum: name={{ item }} state=present
+  with_items:
+   - libselinux-python
+   - libsemanage-python
+
 - name: Create the repository for EPEL
   copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
 
@@ -27,9 +33,14 @@
   notify: restart ntp
 
 - name: Start the ntp service
-  service: name=ntpd state=started enabled=true
+  service: name=ntpd state=started enabled=yes
   tags: ntp
 
 - name: insert iptables template
   template: src=iptables.j2 dest=/etc/sysconfig/iptables
   notify: restart iptables
+
+- name: test to see if selinux is running
+  command: getenforce
+  register: sestatus
+  changed_when: false
